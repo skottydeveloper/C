@@ -69,7 +69,31 @@ In this program, we have a variable num of int type:
 -  A memory space is allocated for each variable that holds the value of that variable, this memory space has an address.
 -  The value of the variable is stored in a memory address, which helps the C program to find that value when it's needed.
 
-Structure Operators
+Let’s say the address assigned to variable num is 0x7fff5694dc58, which means whatever value we would be assigning
+to num should be stored at the location: 0x7fff5694dc58. */
+
+#include <stdio.h>
+int main()
+{
+   int num = 10;
+   printf("Value of variable num is: %d", num);
+   /* To print the address of a variable we use %p
+    * format specifier and ampersand (&) sign just
+    * before the variable name like &num.
+    */
+   printf("\nAddress of variable num is: %p", &num);
+   return 0;
+}
+
+/* Output 
+-  Value of variable num is: 10
+-  Address of variable num is: 0x7fff5694dc58 */
+
+/* 
+
+*/
+
+/* Structure Operators
 
 Miscellaneous Operators
 The Ternary Operator
