@@ -13,13 +13,13 @@ for the argument, and the "int" keyword for the return value.
 -  The function has a body, which is wrapped in curly braces. Inside the body, is the code the function needs to perform
 its operations. 
 
--  The "printf()"" function is written differently, as you can see. It has no return value defined, and a string is passed,
+-  The "printf()" function is written differently, as you can see. It has no return value defined, and a string is passed,
 wrapped in double quotes. The type of argument wasn't specified. 
 
--  This is because this is a function invocation. Somewhere, inside the "stdio" library, "printf" is defined as: 
+-  This is because this is a function invocation. Somewhere, inside the "stdio" library, "printf" is defined as: */
     int printf(const char *format, ...);
 
-    This is where the function is run. 
+/* This is where the function is run. 
 
 -  The "main()" function, defined above - will be run by the operating system when the program is executed. 
 

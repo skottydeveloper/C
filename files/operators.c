@@ -59,6 +59,18 @@ Compound Assignment Operators
 
 Bitwise Operators
 
+Pointer Operators
+-  A pointer is a variable that stores the address of another variable. 
+-  Unlike other variables that hold values of a certain type, pointer holds the address of a variable. 
+-  For example, an integer variable holds (or you can say stores) an integer value, however an integer pointer holds the address of a integer variable.
+
+In this program, we have a variable num of int type:
+-  The value of num is 10 and this value must be stored somewhere in the memory. 
+-  A memory space is allocated for each variable that holds the value of that variable, this memory space has an address.
+-  The value of the variable is stored in a memory address, which helps the C program to find that value when it's needed.
+
+Structure Operators
+
 Miscellaneous Operators
 The Ternary Operator
 -  The only operator in C to work with three operands; it's a short way to express conditionals.

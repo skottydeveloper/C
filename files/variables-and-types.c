@@ -124,7 +124,7 @@ All can represent both positive and negative numbers.
 - Minimum requirements for C, is that a float can represent a range between 10^-37 and 10^+37, and is usually
 implemented using 32 bits. 
 
-- Double can represent a larger set fo numbers, with a long double being able to hold even more numbers. 
+- Double can represent a larger set of numbers, with a long double being able to hold even more numbers. 
 
 - A float is represented in 32 bits, and has a precision of 24 significant bits, 8 bits are used to encode the exponent. 
 
@@ -153,5 +153,5 @@ short size: 2 bytes
 long size: 8 bytes
 flaot size: 4 bytes
 double size: 8 bytes
-long double size: 16 bytes
+long double size: 16 bytes */
     
