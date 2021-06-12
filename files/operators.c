@@ -85,13 +85,94 @@ int main()
    return 0;
 }
 
-/* Output 
+/* Output: 
 -  Value of variable num is: 10
 -  Address of variable num is: 0x7fff5694dc58 */
 
-/* 
+/* Here's another example program to show how a pointer is used and declared: */
 
-*/
+#include <stdio.h>
+int main() {
+     int num = 10; // Variable declaration.
+     int *p; // Pointer declaration.
+     p = 0x7fff5694dc58; // Assigning address of num to the pointer p.
+     printf("Address of variable num is: %p", p);
+     return 0; // Exit program once the function is fully executed. Outside of main(), it exits the loop in a function.
+}
+
+/* Output: 
+-  Address of variable num is: 0x7fff5694dc58
+
+Operators that are used with pointers:
+-  "Address of" operator (&)
+   -  The address of a variable is displayed using an "&" variable. 
+
+Example: */
+printf("Address of var is: %p", &num); // %p is a format specifier which is used for displaying the address in hex format. 
+
+// -  "Value at address" operator (*)
+/* If you need a pointer to store the address of an integer variable then the data type of the pointer should be an int. 
+Same case applies with the other data types. */
+
+int *p1 // Pointer to an integer variable. 
+double *p2 // Pointer to a variable of data type double.
+char *p3 // Pointer to a character variable. 
+float *p4 // Pointer to a float variable. 
+
+// By using the "*" operator, we can access the value of a variable through a pointer. For example:
+double a = 10;
+double *p;
+p = &a;
+
+// "*p" would give us the value of the variable "a". The following statement would display "10" as the output:
+printf("&d", *p);
+
+// Similarly, if we assign a value to *pointer like this:
+*p = 200;
+
+// It would change the value of variable "a". The statement above will change the value of "a" from 10 to 200. 
+
+// Example of a pointer, demonstrating the use of "&" and "*":
+#include <stdio.h>
+int main() {
+     // Pointer of integer type, this can hold the address of an integer type variable. 
+     int *p;
+
+     int var = 10;
+
+     // Assigning the address of variable "var", to the pointer "p". "p" can hold the address of "var" because "var" is an integer type variable. 
+     p = &var;
+
+     printf("Value of variable var is: &d", var);
+     printf("\nValue of variable var is: %d", *p);
+     printf("\nAddress of variable var is: %p", &var);
+     printf("\nAddress of variable var is: %p", p);
+     printf("\nAddress of pointer p is: %p", &p); 
+     return 0; // Exit program once the function is fully executed. Outside of main(), it exits the loop in a function.
+}
+
+/* Output:
+Value of variable var is: 10
+Value of variable var is: 10
+Address of variable var is: 0x7fff5ed98c4c 
+Address of variable var is: 0x7fff5ed98c4c 
+Address of pointer p is: 0x7fff5ed98c50 */
+
+// Another example. This code replaces the value of "a", with "b":
+
+// We have a char variable "ch" and a pointer "ptr", that holds the address of "ch".
+char ch = 'a'; // Single quotes are used for individual characters, double for string literals. 
+char *ptr;
+
+// Read the value of ch.
+printf("Value of ch: %c", ch);
+// or
+printf("Value of ch: %c", *ptr);
+
+// Change the value of ch.
+ch = b;
+// or
+*ptr = 'b';
 
 /* Structure Operators
 
