@@ -58,6 +58,34 @@ Compound Assignment Operators
      -  Modulo assignment: Has "%=" operator, i.e. "a %= b". 
 
 Bitwise Operators
+-  These operators work on bits and perform bit-by-bit operation. 
+-  The truth tables for &, | and ^ is as follows:
+
+Truth table:
+| p | q |p&q|p|q|p^q|
+| 0 | 0 | 0 | 0 | 0 |
+| 0 | 1 | 0 | 1 | 1 |
+| 1 | 1 | 1 | 1 | 0 | 
+| 1 | 0 | 0 | 1 | 1 |
+
+Assume that A = 60, B = 13 - in binary format. They'll be as follows:
+A = 0011 1100
+B = 0000 1101
+-------------
+A&B = 0000 1100
+A|B = 0011 1101
+A^B = 0011 0001
+~A = 1100 0011
+A<<2 = 1111 0000
+A>>2 = 0000 1111
+
+The following list, lists the bitwise operators supported by C:
+-  "&" Operator: Binary "AND" operator copies a bit to the result if it exists in both operands. 
+-  "|" Operator: Binary "OR" operator copies a bit if it exists in either operand. 
+-  "^" Operator: Binary "XOR" operator copies the bit if it's set in one operand but not both. 
+-  "~" Operator: Binary "One's Complement" operator is unary and has the effect of flipping bits.
+-  "<<" Operator: Binary "Left Shift" operator - the left operands value is moved left by the number of bits specified by the right operand. 
+-  ">>" Operator: Binary "Right Shift" operator - the left operands value is moved right by the number of bits specified by the right operand. 
 
 Pointer Operators
 -  A pointer is a variable that stores the address of another variable. 
