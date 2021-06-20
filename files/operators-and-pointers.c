@@ -6,7 +6,7 @@
 -  Bitwise operators.
 -  Pointer operators.
 -  Structure operators.
--  Miscellaneous operators. 
+-  Miscellaneous operators.
 
 Arithmetic Operators
 -  Arithmetic operators are either binary or unary.
