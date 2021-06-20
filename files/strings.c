@@ -31,6 +31,4 @@ with strings, and provides a set of useful functions.
 -  "strcat()": To append a string to another string.
 -  "strcmp()": To compare two strings for equality.
 -  "strncmp()": To compare the first "n" characters of two strings.
--  "strlen()": To calculate the length of a string.  
-
-*/
+-  "strlen()": To calculate the length of a string. */
