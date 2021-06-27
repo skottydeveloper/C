@@ -28,8 +28,4 @@ int main(void) {
 }
 
 /* -  Global variables are accessible from any function of the program, and they're available for the whole execution of the
-program, until it ends. 
-
--  
-
-*/
+program, until it ends. */
