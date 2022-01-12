@@ -2,29 +2,6 @@
 ## Summary
 This repository is a portfolio of code for the C programming language. It consists of projects I have completed, during uni and in my own time - and it consists of notes I have written, while learning C. 
 
-## Tutorial Content
-- What Is C?
-- How To Compile C.
-- Variables and Types.
-- Constants. 
-- Operators.
-- Conditionals. 
-- Loops. 
-- Arrays.
-- Strings.
-- Pointers.
-- Functions. 
-- Input & Output. 
-- Variables Scope. 
-- Static Variables. 
-- Global Variables. 
-- Type Definitions. 
-- Enumerated Types. 
-- Structures. 
-- Command Line Parameters. 
-- Header Files. 
-- The Preprocessor. 
-
 ## Projects
 ### Payroll Management System
 #### Summary
