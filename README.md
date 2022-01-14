@@ -1,6 +1,6 @@
 # C
 ## Summary
-This repository is a portfolio of code for the C programming language. It consists of projects I have completed, during uni and in my own time - and it consists of notes I have written, while learning C. 
+This repository is a portfolio of code for the C programming language. It consists of projects I have completed, during uni and in my own time.
 
 ## Major Projects
 ### Payroll Management System
