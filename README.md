@@ -3,7 +3,7 @@
 This repository is a portfolio of code for the C programming language. It consists of projects I have completed, during uni and in my own time, while learning C.
 
 ## Mini Projects
-Consists of basic, miniature projects that demonstrate my knowledge in each feature of C programming language. For example, one project will demonstrate the application of knowledge in pointers and structures, while another will demonstrate the application of knowledge in switch statements. 
+Consists of basic, miniature projects that demonstrate my knowledge in each feature of the C programming language. For example, one project will demonstrate the application of knowledge in pointers and structures, while another will demonstrate the application of knowledge in switch statements. 
 
 ## Complete Projects
 ### Payroll Management System
