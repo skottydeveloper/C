@@ -1,0 +1,16 @@
+# Variables:
+CC = gcc
+CFLAGS = -Wall
+LIBS = -lpthread -lrt
+TARGET = prog_1
+
+# Default target:
+all: $(TARGET)
+
+# Build the target:
+$(TARGET): prog_1.c
+	$(CC) $^ -o $@ $(LIBS) $(CFLAGS)
+
+# Clean:
+clean:
+	rm -f $(TARGET) out.txt
