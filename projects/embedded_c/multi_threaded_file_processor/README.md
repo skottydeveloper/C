@@ -22,3 +22,11 @@ The ThreadB() function reads data from the pipe used in ThreadA() and writes it 
 The ThreadC() function reads data from the message field of the ThreadParams struct and writes non-header text to the file "out.txt". It skips the header by checking for the string "end_header". It uses semaphores to coordinate with Threads A and B to prevent simultaneous access to the pipe and the message field.
 
 In summary, this program demonstrates the use of multi-threading, pipes, and semaphores to read data from a file, process it, and write the result to another file in a synchronised and concurrent manner.
+
+## Instructions
+
+Thanks to the use of a makefile, it's easy to compile and run the the multi-threaded file processor program. The instructions are as of below:
+1.  Ensure that gcc is installed.
+2.  Run the following command: "make".
+3.  Type: "./prog_1".
+4.  To clean all output files created, run "make clean".
