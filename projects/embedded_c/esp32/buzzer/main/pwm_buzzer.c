@@ -1,14 +1,23 @@
+#include <stdio.h>
+#include "esp_system.h"
+#include "esp_log.h"
+#include "driver/ledc.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "freertos/semphr.h"
-#include "driver/gpio.h"
-#include "driver/ledc.h"
-#include "esp_rom_sys.h"
 
-#define BUZZER_PIN 32 // GPI32
+// Buzzer, LEDC, and PWM configuration constants.
+#define BUZZER_PIN 32
 #define LEDC_CHANNEL LEDC_CHANNEL_0
 #define LEDC_TIMER LEDC_TIMER_0
 #define PWM_FREQUENCY 1000
+
+// Task configuration constants.
+#define TASK_STACK_SIZE 2048
+#define TASK_PRIORITY_1 2
+#define TASK_PRIORITY_2 1
+#define BUZZER_ON_DURATION_MS 1000
+#define TASK_DELAY_MULTIPLIER_MS 1000
 
 // Declare a semaphore handle for the mutex.
 SemaphoreHandle_t buzzer_mutex;
@@ -16,17 +25,17 @@ SemaphoreHandle_t buzzer_mutex;
 // The buzzer_task function is designed to be run in a separate FreeRTOS task.
 void buzzer_task(void *arg) {
     // Get the task number from the argument passed to the function.
-    int task_num = (int) arg;
+    int task_num = (int)arg;
 
     // Calculate the delay period based on the task's number.
-    int delay_period = (task_num) * 1000 / portTICK_PERIOD_MS;
+    int delay_period = (task_num) * TASK_DELAY_MULTIPLIER_MS / portTICK_PERIOD_MS;
 
     // Main loop of the task.
     while (1) {
         // Try to take the mutex for buzzer access. Wait indefinitely until it is available.
         if (xSemaphoreTake(buzzer_mutex, portMAX_DELAY) == pdTRUE) {
-            // If the mutex is successfully taken, print the task number that got access to the buzzer.
-            printf("Task %d got access to buzzer.\n", task_num);
+            // Log the task number that got access to the buzzer.
+            ESP_LOGI("buzzer_task", "Task %d got access to buzzer.", task_num);
 
             // Set the duty cycle based on the task number.
             int duty = (task_num == 1) ? 8192 : 4096;
@@ -35,7 +44,7 @@ void buzzer_task(void *arg) {
             ledc_update_duty(LEDC_HIGH_SPEED_MODE, LEDC_CHANNEL);
 
             // Use the buzzer for a specific duration (1 second).
-            vTaskDelay(pdMS_TO_TICKS(1000));
+            vTaskDelay(pdMS_TO_TICKS(BUZZER_ON_DURATION_MS));
 
             // Turn off the buzzer.
             ledc_set_duty(LEDC_HIGH_SPEED_MODE, LEDC_CHANNEL, 0);
@@ -81,7 +90,7 @@ void app_main(void) {
     buzzer_mutex = xSemaphoreCreateMutex();
 
     /* Create two tasks with different priorities. Task 1 has a higher priority (2) than Task 2 (1).
-       The task with a higher priority will have a higher chance of getting access to the buzzer first. */
-    xTaskCreate(buzzer_task, "Buzzer Task 1", 2048, (void *) 1, 2, NULL);
-    xTaskCreate(buzzer_task, "Buzzer Task 2", 2048, (void *) 2, 1, NULL);
+    The task with a higher priority will have a higher chance of getting access to the buzzer first. */
+    xTaskCreate(buzzer_task, "Buzzer Task 1", TASK_STACK_SIZE, (void *)1, TASK_PRIORITY_1, NULL);
+    xTaskCreate(buzzer_task, "Buzzer Task 2", TASK_STACK_SIZE, (void *)2, TASK_PRIORITY_2, NULL);
 }
