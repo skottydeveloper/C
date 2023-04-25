@@ -1,4 +1,5 @@
 #include <stdio.h>
+
 #include "esp_system.h"
 #include "esp_log.h"
 #include "driver/ledc.h"
@@ -14,10 +15,11 @@
 
 // Task configuration constants.
 #define TASK_STACK_SIZE 2048
-#define TASK_PRIORITY_1 2
-#define TASK_PRIORITY_2 1
+#define TASK_PRIORITY_1 1
+#define TASK_PRIORITY_2 2
 #define BUZZER_ON_DURATION_MS 1000
-#define TASK_DELAY_MULTIPLIER_MS 1000
+#define TASK_DELAY_MULTIPLIER_MS_1 250
+#define TASK_DELAY_MULTIPLIER_MS_2 125
 
 // Declare a semaphore handle for the mutex.
 SemaphoreHandle_t buzzer_mutex;
@@ -27,21 +29,18 @@ void buzzer_task(void *arg) {
     // Get the task number from the argument passed to the function.
     int task_num = (int)arg;
 
-    // Calculate the delay period based on the task's number.
-    int delay_period = (task_num) * TASK_DELAY_MULTIPLIER_MS / portTICK_PERIOD_MS;
-
     // Main loop of the task.
     while (1) {
         // Try to take the mutex for buzzer access. Wait indefinitely until it is available.
         if (xSemaphoreTake(buzzer_mutex, portMAX_DELAY) == pdTRUE) {
-            // Log the task number that got access to the buzzer.
-            ESP_LOGI("buzzer_task", "Task %d got access to buzzer.", task_num);
-
             // Set the duty cycle based on the task number.
-            int duty = (task_num == 1) ? 8192 : 4096;
+            int duty = (task_num == 1) ? 4186 : 2093;
 
             ledc_set_duty(LEDC_HIGH_SPEED_MODE, LEDC_CHANNEL, duty);
             ledc_update_duty(LEDC_HIGH_SPEED_MODE, LEDC_CHANNEL);
+
+            // Determine the "esp_rom_delay" value based on the task number.
+            int esp_rom_delay = (task_num > 1) ? TASK_DELAY_MULTIPLIER_MS_2 : TASK_DELAY_MULTIPLIER_MS_1;
 
             // Use the buzzer for a specific duration (1 second).
             vTaskDelay(pdMS_TO_TICKS(BUZZER_ON_DURATION_MS));
@@ -54,7 +53,7 @@ void buzzer_task(void *arg) {
             xSemaphoreGive(buzzer_mutex);
 
             // Wait for the calculated delay period before trying to take the mutex again.
-            vTaskDelay(delay_period);
+            vTaskDelay(esp_rom_delay);
         }
     }
 }

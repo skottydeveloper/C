@@ -6,7 +6,7 @@
 #include "driver/ledc.h"
 #include "esp_log.h"
 
-#define BUZZER_PIN 32 // GPI32
+#define GPIO_BUZZER_PIN 32 // GPI32
 
 // Define notes and frequencies.
 #define NOTE_E4 330
@@ -75,10 +75,10 @@ _Static_assert(sizeof(melody) == sizeof(durations), "size of durations and melod
 
 void playNoteTask(void *parameters) {
     // Extract the note duration from the task parameter.
-    int noteDuration = *((int*)parameters); 
+    const int noteDuration = *((int*)parameters); 
 
     // Wait for the note duration.
-    vTaskDelay(noteDuration / portTICK_PERIOD_MS); 
+    vTaskDelay(pdMS_TO_TICKS(noteDuration)); 
 
     // Stop PWM.
     ledc_stop(LEDC_HIGH_SPEED_MODE, LEDC_CHANNEL_0, 0); 
@@ -99,7 +99,7 @@ void playTone(int frequency, int duration) {
         ledc_update_duty(LEDC_HIGH_SPEED_MODE, LEDC_CHANNEL_0); 
 
         // Create task to stop PWM after note duration.
-        xTaskCreate(playNoteTask, "playNoteTask", 1024, (void*)&duration, 1, NULL); 
+        xTaskCreate(playNoteTask, "playNoteTask", 1024, (void*)&duration, 1, NULL);
     }
 }
 
@@ -108,7 +108,7 @@ void playMarioTheme() {
         int noteDuration = durations[i] * 50;
 
         playTone(melody[i], noteDuration);
-        
+
         // Add a brief pause between notes.
         vTaskDelay((noteDuration + 50) / portTICK_PERIOD_MS); 
     }
@@ -116,14 +116,14 @@ void playMarioTheme() {
 
 void app_main(void) {
     // Configure buzzer pin as output.
-    gpio_set_direction(BUZZER_PIN, GPIO_MODE_OUTPUT);
+    gpio_set_direction(GPIO_BUZZER_PIN, GPIO_MODE_OUTPUT);
 
     ledc_timer_config_t timerConfig = {
         .duty_resolution = LEDC_TIMER_8_BIT,
-        .freq_hz = 1000,
+        .freq_hz = 1000, // 1 kHz.
         .speed_mode = LEDC_HIGH_SPEED_MODE,
         .timer_num = LEDC_TIMER_0,
-        .clk_cfg = LEDC_USE_APB_CLK,
+        .clk_cfg = LEDC_USE_APB_CLK, // Use the APB clock as the source.
     };
 
     ledc_timer_config(&timerConfig);
@@ -131,7 +131,7 @@ void app_main(void) {
     ledc_channel_config_t channelConfig = {
         .channel = LEDC_CHANNEL_0,
         .duty = 0,
-        .gpio_num = BUZZER_PIN,
+        .gpio_num = GPIO_BUZZER_PIN,
         .speed_mode = LEDC_HIGH_SPEED_MODE,
         .timer_sel = LEDC_TIMER_0,
         .hpoint = 0,
@@ -144,6 +144,6 @@ void app_main(void) {
         playMarioTheme();
 
         // Wait for 3 seconds.
-        vTaskDelay(3000 / portTICK_PERIOD_MS);
+        vTaskDelay(pdMS_TO_TICKS(3000));
     }
 }
