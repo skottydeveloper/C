@@ -13,4 +13,4 @@ $(TARGET): program_1.c
 
 # Clean:
 clean:
-	rm -f $(TARGET) out.txt
+	rm -f $(TARGET) output.txt
