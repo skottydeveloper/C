@@ -1,7 +1,7 @@
 /***********************************************************************************************************
  * Compilation instructions:
- * To compile "prog_1", ensure that gcc is installed.
- * Run the following command: "make", then type: "./prog_1".
+ * To compile "program_1", ensure that gcc is installed.
+ * Run the following command: "make", then type: "./program_1".
  * To clean all output files created, run "make clean".
 ************************************************************************************************************/
 
