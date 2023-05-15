@@ -2,7 +2,7 @@
 CC = gcc
 CFLAGS = -Wall
 LIBS = -lpthread -lrt
-TARGET = prog_1
+TARGET = program_1
 
 # Default target:
 all: $(TARGET)
