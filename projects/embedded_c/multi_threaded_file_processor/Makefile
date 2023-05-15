@@ -8,7 +8,7 @@ TARGET = program_1
 all: $(TARGET)
 
 # Build the target:
-$(TARGET): prog_1.c
+$(TARGET): program_1.c
 	$(CC) $^ -o $@ $(LIBS) $(CFLAGS)
 
 # Clean:
