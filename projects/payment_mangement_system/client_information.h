@@ -17,6 +17,7 @@
 struct date {
     int day, month, year;
 };
+
 typedef struct date date_t;
 
 /******************************************************************************
@@ -43,6 +44,7 @@ struct client {
 	char bank_account[100];
     int amount_paid;
 };
+
 typedef struct client client_t;
 
 #endif

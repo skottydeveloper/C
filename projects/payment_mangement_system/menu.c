@@ -1,4 +1,4 @@
-/*****************************************************************************
+/******************************************************************************
  * List of header files used.
 ******************************************************************************/
 #include <stdio.h>
@@ -8,20 +8,21 @@
 #include "encryption.h"
 #include "compression.h"
 
-/*****************************************************************************
+/******************************************************************************
  * List of structs used.
 ******************************************************************************/
 struct employerLogin {
     char username[50], password[50]; 
 };
+
 typedef struct employerLogin employerLogin_t;
 
-/*****************************************************************************
+/******************************************************************************
  * List of preprocessing directives used.
 ******************************************************************************/
 #define MAX_EMPLOYER_NUMBER 10
 
-/*****************************************************************************
+/******************************************************************************
  * Function definitions.
 ******************************************************************************/
 void clientMenu(void);
@@ -29,12 +30,12 @@ void employerMenu(void);
 int employerLogin(int employerNumber, employerLogin_t employers[]);
 void showCurrentCustomers(void);
 
-/*****************************************************************************
+/******************************************************************************
  * List of variables used.
 ******************************************************************************/
 int debugActivated;
 
-/*****************************************************************************
+/******************************************************************************
 * The main() function.                               
 ******************************************************************************/
 int main(int argc, char* argv[]) { 
@@ -45,21 +46,21 @@ int main(int argc, char* argv[]) {
     /* User is first prompted to provide an index of an existing command
     line argument. */
     if (argc == 1) {
-      printf("Please supply a Command Line Argument:" 
-      "\n-d = Debug mode, -r = User Mode\n");
-      exit(1);
+        printf("Please supply a Command Line Argument:" 
+        "\n-d = Debug mode, -r = User Mode\n");
+        exit(1);
     }
     
     /* Checks for if the user is in debug mode, via multiple command 
     arguments. */ 
     if (strcmp(argv[1], "-d") == 0) {
-      printf("Debug mode activated.\n");
-      debugActivated = 1;
+        printf("Debug mode activated.\n");
+        debugActivated = 1;
     } else if (strcmp(argv[1], "-r") == 0) {
-      debugActivated = 0;
+        debugActivated = 0;
     } else {
-      printf("Unrecognised Command Line Argument\n");
-      exit(1);
+        printf("Unrecognised Command Line Argument\n");
+        exit(1);
     }
 
     employerLogin_t employerLogins[MAX_EMPLOYER_NUMBER];
@@ -91,7 +92,7 @@ int main(int argc, char* argv[]) {
         employerLogins[1].username);
     }
 
-     /* Allocate "321" as a valid password for the system. */
+    /* Allocate "321" as a valid password for the system. */
     strcpy(employerLogins[1].password, "321");
 
     /* Debug mode prompt. */
@@ -124,7 +125,7 @@ int main(int argc, char* argv[]) {
 
         switch (choice) {
             case 1: 
-            /* Open the menu for the client. */
+                /* Open the menu for the client. */
                 clientMenu();
 
                 if (debugActivated == 1) {
@@ -132,8 +133,8 @@ int main(int argc, char* argv[]) {
                 }
                 break;
             case 2: 
-            /* Employer logs in here, password protected as
-            extra security for data. */
+                /* Employer logs in here, password protected as
+                extra security for data. */
                 if (employerLogin(employerCount, employerLogins) == 1) {   
                     employerMenu();
 
@@ -158,13 +159,14 @@ int main(int argc, char* argv[]) {
             break;
         }
        
-       /* If the choice isn't any of the three choices, prompt the user 
-       and close the program. */
+        /* If the choice isn't any of the three choices, prompt the user 
+        and close the program. */
         if (choice != 1 && choice != 2 && choice != 3) {
             printf("Invalid entry. Exiting program...\n");
             break;
         }
     }
+
     return 0;
 }
 
@@ -203,8 +205,8 @@ void clientMenu() {
         
         switch (choice) {
             case 1:
-            /* If there's a list of payments, allow the user to add to the
-            existing list, else allow the user to create a new list. */
+                /* If there's a list of payments, allow the user to add to the
+                existing list, else allow the user to create a new list. */
                 if (size() == -1) {
                     create(debugActivated);
 
@@ -222,7 +224,7 @@ void clientMenu() {
                 }
                 break;
             case 2: 
-            /* Exit the menu. */
+                /* Exit the menu. */
                 printf("Exiting menu...\n");
                 break;
             default:
@@ -234,13 +236,12 @@ void clientMenu() {
             break;
         }
        
-       /* If the choice isn't any of the two choices, prompt the user 
-       to input again. */
+        /* If the choice isn't any of the two choices, prompt the user 
+        to input again. */
         if (choice != 1 && choice != 2 && choice != 0) {
             printf("Invalid entry. Please retry...\n");
             choice = 0;
-            break;
-            
+            break;  
         }
     }
 }
@@ -284,7 +285,7 @@ void employerMenu() {
         
         switch (choice) {
             case 1:
-            /* Allow the user to decrypt a file. */
+                /* Allow the user to decrypt a file. */
                 decrypt(debugActivated);
 
                 /* Debug mode prompt. */
@@ -293,7 +294,7 @@ void employerMenu() {
                 }
                 break;
             case 2:
-            /* Allow the user to encrypt all data, and compress it. */
+                /* Allow the user to encrypt all data, and compress it. */
                 encryptAll(debugActivated);
 
                 /* Debug mode prompt. */
@@ -302,8 +303,8 @@ void employerMenu() {
                 }
                 break;
             case 3:
-            /* Allow the user to select a current customer and encrypt 
-            their data. */
+                /* Allow the user to select a current customer and encrypt 
+                their data. */
                 showCurrentCustomers();
                 encryptSpecific(debugActivated);
 
@@ -314,8 +315,8 @@ void employerMenu() {
                 }
                 break;
             case 4:
-            /* Allow the user to sort their payment information, by 
-            most recent purchases made. */
+                /* Allow the user to sort their payment information, by 
+                most recent purchases made. */
                 sort();
                 break;
             case 5:
@@ -329,8 +330,8 @@ void employerMenu() {
             break;
         }
        
-       /* If the choice isn't any of the five choices, prompt the user 
-       to input again. */
+        /* If the choice isn't any of the five choices, prompt the user 
+        to input again. */
         if (choice != 1 && choice != 2 && choice != 3 && 
         choice != 4 && choice != 0) {
             printf("Invalid entry, please retry...\n");
@@ -403,6 +404,7 @@ int employerLogin(int employerCount, employerLogin_t employers[]) {
         system. */
         char *usernameP = (employers[i].username);
         char *passwordP = (employers[i].password);
+        
         if (strcmp(attemptedUsername, usernameP) == 0 
         && strcmp(attemptedPassword, passwordP) == 0) {
             foundLogin = 1;

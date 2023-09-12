@@ -1,4 +1,4 @@
-/*****************************************************************************
+/******************************************************************************
  * List of header files used.
 ******************************************************************************/
 #include <string.h>
@@ -7,10 +7,6 @@
 #include "linkedListSource.h"
 #include "compression.h"
 
-/* Some of the code to the encryption and decryption is adapted 
-and sourced from: 
-https://www.w3resource.com/c-programming-exercises/file-handling/
-c-file-handling-exercise-13.php */
 /*******************************************************************************
  * The function prototypes used.
 *******************************************************************************/
@@ -20,18 +16,18 @@ void encryptStringandAdd(char string[], FILE *fptt);
  * encryptAll() function description:
  * The 'encryptAll()' function firstly opens a file, and writes to it - all of
  * the clients' information to it. The clients' information is then encrypted
- * into text - via the 'encryptStringandAdd() function'. While the text is 
+ * into text - via the 'encryptStringandAdd()' function. While the text is 
  * being written to the file, it's also being compressed. When all the text 
  * is written to the file, in its encrypted form - it's then decompressed.  
  *
  * Inputs:
- * - 'customerID' from the client struct.
- * - 'name' from the client struct.
- * - 'business_name' from the client struct.
- * - 'amount_paid' from the client struct.
- * - 'bank_account' from the client struct.
- * - 'date_of_payment' (day, month, year) from the client struct.
- * - 'invoice_number' from the client struct.
+ * - 'customerID' from the 'client' struct.
+ * - 'name' from the 'client' struct.
+ * - 'business_name' from the 'client' struct.
+ * - 'amount_paid' from the 'client' struct.
+ * - 'bank_account' from the 'client' struct.
+ * - 'date_of_payment' (day, month, year) from the 'client' struct.
+ * - 'invoice_number' from the 'client' struct.
  *
  * Outputs:
  * - The encrypted 'customerID'.
@@ -124,19 +120,19 @@ void encryptAll() {
  * encryptSpecific() function description: 
  * The 'encryptSpecific()' function firstly opens a file, and writes to 
  * it - all of the specified client's information to it. The clients' 
- * information is then encrypted into text - via the 'encryptStringandAdd() 
- * function'. While the text is being written to the file, it's also being 
+ * information is then encrypted into text - via the 'encryptStringandAdd()' 
+ * function. While the text is being written to the file, it's also being 
  * compressed. When all the text is written to the file, in its encrypted 
  * form - it's then decompressed.
  *
  * Inputs:
- * - 'customerID' from the client struct.
- * - 'name' from the client struct.
- * - 'business_name' from the client struct.
- * - 'amount_paid' from the client struct.
- * - 'bank_account' from the client struct.
- * - 'date_of_payment' (day, month, year) from the client struct.
- * - 'invoice_number' from the client struct.
+ * - 'customerID' from the 'client' struct.
+ * - 'name' from the 'client' struct.
+ * - 'business_name' from the 'client' struct.
+ * - 'amount_paid' from the 'client' struct.
+ * - 'bank_account' from the 'client' struct.
+ * - 'date_of_payment' (day, month, year) from the 'client' struct.
+ * - 'invoice_number' from the 'client' struct.
  *
  * Outputs:
  * - The encrypted 'customerID'.
@@ -178,73 +174,73 @@ void encryptSpecific() {
         printf("Business was found,creating encrypted document\n\n");
 		fptt = fopen(selectedBusiness, "w");
 	
-	/* If the file cannot be created correctly. */
-  	if (fptt == NULL) {
-		printf("Error in creation of file!");
+		/* If the file cannot be created correctly. */
+		if (fptt == NULL) {
+			printf("Error in creation of file!");
+			fclose(fptt);
+			exit(2);
+		}
+
+		for (i = 0; i < indexSize; i++) {
+			/* Get each client. */
+			client_t client = getClient((indexes[i]));
+
+			/* Strings to store final data to encrypt. */
+			char stringInvoiceNo[200], stringCustomerID[200], stringName[200];
+			char stringBusinessName[200], stringBankAccountNumber[200];
+			char stringDate[200], stringAmountPaid[200];
+
+			/* Compressing headings to save memory. Concantenating data
+			with headings which are decompressed and transforming 
+			everything to a string: */
+			char* heading = "Invoice Number: ";
+			heading = compress(heading);
+			sprintf(stringInvoiceNo, "%s%d\n", decompress(heading), 
+			client.invoice_number);
+
+			heading = "Customer ID: ";
+			heading = compress(heading);
+			sprintf(stringCustomerID, "%s%d\n", decompress(heading), 
+			client.customerID);
+
+			heading = "Name: ";
+			heading = compress(heading);
+			sprintf(stringName, "%s%s\n", decompress(heading), client.name);
+
+			heading = "Business Name: ";
+			heading = compress(heading);
+			sprintf(stringBusinessName, "%s%s\n", decompress(heading),
+			client.business_name);
+
+			heading = "Bank Account Number: ";
+			heading = compress(heading);
+			sprintf(stringBankAccountNumber, "%s%s\n",
+			decompress(heading), client.bank_account);
+			
+			heading = "Date of Payment: ";
+			heading = compress(heading);
+			sprintf(stringDate, "%s%d-%d-%d\n\n", 
+			decompress(heading),
+			client.date_of_payment.day, client.date_of_payment.month, 
+			client.date_of_payment.year);
+			
+			heading = "Amount to Pay: ";
+			heading = compress(heading);
+			sprintf(stringAmountPaid, "%s%d\n", decompress(heading), 
+			client.amount_paid);
+
+			/* Encrypt each piece of data and write it to the file. */
+			encryptStringandAdd(stringInvoiceNo, fptt);
+			encryptStringandAdd(stringCustomerID, fptt);
+			encryptStringandAdd(stringName, fptt);
+			encryptStringandAdd(stringBusinessName, fptt);
+			encryptStringandAdd(stringBankAccountNumber, fptt);
+			encryptStringandAdd(stringAmountPaid, fptt);
+			encryptStringandAdd(stringDate, fptt);
+		}
+
+		/* Close the file, after encrypting it. */
 		fclose(fptt);
-		exit(2);
-	}
-
-	for (i = 0; i < indexSize; i++) {
-		/* Get each client. */
-		client_t client = getClient((indexes[i]));
-
-		/* Strings to store final data to encrypt. */
-		char stringInvoiceNo[200], stringCustomerID[200], stringName[200];
-		char stringBusinessName[200], stringBankAccountNumber[200];
-		char stringDate[200], stringAmountPaid[200];
-
-		/* Compressing headings to save memory. Concantenating data
-		with headings which are decompressed and transforming 
-		everything to a string: */
-		char* heading = "Invoice Number: ";
-		heading = compress(heading);
-		sprintf(stringInvoiceNo, "%s%d\n", decompress(heading), 
-		client.invoice_number);
-
-		heading = "Customer ID: ";
-		heading = compress(heading);
-		sprintf(stringCustomerID, "%s%d\n", decompress(heading), 
-		client.customerID);
-
-		heading = "Name: ";
-		heading = compress(heading);
-		sprintf(stringName, "%s%s\n", decompress(heading), client.name);
-
-		heading = "Business Name: ";
-		heading = compress(heading);
-		sprintf(stringBusinessName, "%s%s\n", decompress(heading),
-		client.business_name);
-
-		heading = "Bank Account Number: ";
-		heading = compress(heading);
-		sprintf(stringBankAccountNumber, "%s%s\n",
-		decompress(heading), client.bank_account);
-		
-		heading = "Date of Payment: ";
-		heading = compress(heading);
-		sprintf(stringDate, "%s%d-%d-%d\n\n", 
-		decompress(heading),
-		client.date_of_payment.day, client.date_of_payment.month, 
-		client.date_of_payment.year);
-		
-		heading = "Amount to Pay: ";
-		heading = compress(heading);
-		sprintf(stringAmountPaid, "%s%d\n", decompress(heading), 
-		client.amount_paid);
-
-		/* Encrypt each piece of data and write it to the file. */
-		encryptStringandAdd(stringInvoiceNo, fptt);
-		encryptStringandAdd(stringCustomerID, fptt);
-		encryptStringandAdd(stringName, fptt);
-		encryptStringandAdd(stringBusinessName, fptt);
-		encryptStringandAdd(stringBankAccountNumber, fptt);
-		encryptStringandAdd(stringAmountPaid, fptt);
-		encryptStringandAdd(stringDate, fptt);
-	}
-
-	/* Close the file, after encrypting it. */
-	fclose(fptt);
     }	
 }
 
@@ -305,10 +301,10 @@ void decrypt() {
 	}
 
 	/* Copy the strings from the opened file, to a new file, named 
-	"unencrypted_". */
+	'unencrypted_'. */
 	strcat(unencryptedFilename, filename);
 
-	/* Open and write to "unencrypted_". */
+	/* Open and write to 'unencrypted_'. */
 	fpts = fopen(unencryptedFilename, "w");
 
 	/* If the desired file cannot be found or opened properly. */

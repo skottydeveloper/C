@@ -33,34 +33,33 @@ char *compress(char *decompressString) {
   char* compressedString = malloc(MAX_LENGTH);
 
   /* Keep going until the next character retrieved is not the null character, 
-  also set 'characterGetter' to be equal to the next char in the String. */
+  also set 'characterGetter' to be equal to the next char in the string. */
   while ((characterGetter = *decompressString++) != '\0') { 
-    
     /* Check if the next character is different then the one held by 
     'characterGetter'. */
     if (characterGetter != *decompressString) { 
-      /* Set encodedString character at locationInString, equal to the 
+      /* Set 'encodedString' character at 'locationInString', equal to the 
       counter. */
         if (counter > 1) {
-        /*Location in string is updated with how many bits have been written
-        to the output to keep track of where we are adding data to*/
+        /* Location in string is updated with how many bits have been written
+        to the output to keep track of where we are adding data to. */
             locationInString += sprintf(compressedString + 
             locationInString, "%d", counter); 
         }
-      /* On first iteration of while loop sets the character at 
-      locationInString++ in the String to the first character.
-      Subsequent loops locationInString incrementing ensures data
-      is placed into the correct position. */
+        /* The first iteration of while loop sets the character at 
+        'locationInString++' in the string to the first character.
+        Subsequent loops in 'locationInString' incrementing ensures that 
+        the data is placed into the correct position. */
         *(compressedString + locationInString++) = characterGetter;
-      /* Reset the counter as the next character is not the same as the
-      currently held character by characterGetter. */
+        /* Reset the counter as the next character is not the same as the
+        currently held character by 'characterGetter'. */
         counter = 0;
     }
     /* Increment the counter. */
     counter++;
   }
-   /* Adding the null character to the end of the string then returning it. */
-    *(compressedString + locationInString) = '\0';
+  /* Adding the null character to the end of the string then returning it. */
+  *(compressedString + locationInString) = '\0';
     
   return compressedString;
 }
@@ -73,10 +72,10 @@ char *compress(char *decompressString) {
  * decoding. 
  *
  * Inputs:
- * - Char pointer of the compressed String.
+ * - 'char' pointer of the compressed string.
  *
  * Outputs:
- * - Char pointer of the uncompressed String.
+ * - 'char' pointer of the uncompressed string.
 ******************************************************************************/
 char *decompress(char *compressedString) {
   char characterGetter, characterToPrint;
@@ -88,25 +87,25 @@ char *decompress(char *compressedString) {
   while ((characterGetter = *compressedString++) != '\0') {
     int i;
 
-    /* Check to see if characterGetter holds a number. */
+    /* Check to see if 'characterGetter' holds a number. */
     if (characterGetter == '2' || characterGetter == '3' ||
     characterGetter == '4' || characterGetter == '5' || 
     characterGetter == '6' || characterGetter == '7' || 
     characterGetter == '8' || characterGetter == '9') {
 
-    /* If so, the counter gets set to the char being retrieved, 
+    /* If so, the counter gets set to the 'char' being retrieved, 
     minus '0'. */      
     counter = characterGetter - '0';
     characterToPrint = *(compressedString);
 
       /* While 'i' is less than the counter, reallocate the memory 
-      location - towards the char that's needed to be printed. */      
+      location - towards the 'char' that's needed to be printed. */      
       for (i = 0; i < counter - 1; i++) {
         *(decompressedString + locationInString) = characterToPrint;
         locationInString++;
       }
-       /* If the characterGetter doesn't hold a number, reallocate the memory 
-      location - towards the char that's needed to be retrieved. */
+      /* If the 'characterGetter' doesn't hold a number, reallocate the memory 
+      location - towards the 'char' that's needed to be retrieved. */
     } else {
         *(decompressedString + locationInString) = characterGetter;
         locationInString++;

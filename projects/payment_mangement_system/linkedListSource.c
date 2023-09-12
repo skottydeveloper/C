@@ -27,11 +27,11 @@ int swapAdjacentElements(node_t** headNode, int firstIndex, int secondIndex);
 
 /*****************************************************************************
  * List of variables used.
-******************************************************************************/
-/* A pointer of the typedef struct, node_t.*/
+*****************************************************************************/
+/* A pointer of the typedef struct, 'node_t'. */
 node_t* headNode;
 
-/* A double pointer of node_t; doubleheadNode is a pointer to headNode.*/
+/* A double pointer of 'node_t'; 'doubleheadNode' is a pointer to 'headNode'. */
 node_t** doubleheadNode = &headNode;
 
 /* Below are the following functions to help the user manipulate the linked 
@@ -42,7 +42,7 @@ two groups is to provide additional security and more ease to the user - as
 they're not required to deal with the head node of the linked list that 
 they're manipulating.  
 
-******************************************************************************
+*******************************************************************************
  * User functions: These are called to access and manipulate the linked list.
 ******************************************************************************/
 
@@ -93,7 +93,7 @@ void add() {
  *
  * Outputs:
  * - None.
-*******************************************************************************/
+******************************************************************************/
 void addIndex(int index) {
     addElementToIndex(doubleheadNode, index);
 }
@@ -148,8 +148,8 @@ void viewAll() {
 
 /******************************************************************************
  * getClient() function description: 
- * Returns the client information stored in client_t, a typedef struct from the
- * 'client_information.h' header file, through the initialisation of the 
+ * Returns the client information stored in 'client_t', a typedef struct from 
+ * the 'client_information.h' header file, through the initialisation of the 
  * 'getDataAtIndex()' function, with the 'headNode' pointer and the integer
  * 'index' (which points to the node, that the client information is being
  * retrieved from). 
@@ -158,7 +158,7 @@ void viewAll() {
  * - int 'index' (an integer to represent the position of the client).
  *
  * Outputs:
- * - client_t at 'index'.
+ * - 'client_t' at 'index'.
 ******************************************************************************/
 client_t getClient(int index) {
     return getDataAtIndex(headNode,index);
@@ -210,7 +210,7 @@ void initialiseLinkedList() {
  * sort() function description: 
  * The 'sort()' function is a function that involves the user in being able 
  * to sort the currently existing payments in the list - by most recent 
- * payments made. It uses the sortByDate, with the 'doubleheadNode' parameter 
+ * payments made. It uses the 'sortByDate', with the 'doubleheadNode' parameter 
  * in order to do so.  
  *
  * Inputs:
@@ -229,13 +229,13 @@ void sort() {
  * 'client' structure, via the 'client_t' typedef.
  *
  * Inputs:
- * - None
+ * - None.
  *
  * Outputs:
- * - Client_t struct filled with data from user input
+ * - 'client_t' struct filled with data from user input.
 ******************************************************************************/
 client_t getClientInfo() {
-    /* Get client data via client_t typedef struct. */
+    /* Get client data via 'client_t' typedef struct. */
     client_t client;
 
     /* The invoice number is equal to the size of the head node, plus one. */
@@ -252,8 +252,7 @@ client_t getClientInfo() {
         if (returnSuccessful < 1) {
             printf("Invalid input. Exiting...\n");
             exit(1);
-        } 
-        else {
+        } else {
             client.customerID = customerID;
             break;
         } 
@@ -275,7 +274,7 @@ client_t getClientInfo() {
             name[i] == '6' || name[i] == '7' || 
             name[i] == '8' || name[i] == '9') {
                 printf("Please enter a name with no numbers\n");
-                returnSuccessful=0;
+                returnSuccessful = 0;
                 break;
             }
         }
@@ -293,7 +292,6 @@ client_t getClientInfo() {
         } else {
             printf("Input is too large. Enter again.\n");
         } 
-
     }
     
     /* Check if the user's input for their business name is too large,
@@ -308,8 +306,8 @@ client_t getClientInfo() {
 
         int returnSuccessful = scanf("%s", business_name);
 
-        for (i = 0; i< strlen(business_name); i++) {
-            if(business_name[i] == '2' || business_name[i] == '3' ||
+        for (i = 0; i < strlen(business_name); i++) {
+            if (business_name[i] == '2' || business_name[i] == '3' ||
             business_name[i] == '4' || business_name[i] == '5' || 
             business_name[i] == '6' || business_name[i] == '7' || 
             business_name[i] == '8' || business_name[i] == '9') {
@@ -344,14 +342,13 @@ client_t getClientInfo() {
         if (returnSuccessful < 1) {
             printf("Invalid input. Exiting...\n");
             exit(1);
-        } 
-        else {
+        } else {
             client.amount_paid = amount_paid;
             break;
         } 
     }
     
-    /* Prompt user to input theit bank account identifier. */
+    /* Prompt user to input their bank account identifier. */
     printf("Bank Account Identifier: ");
     scanf("%s", client.bank_account);
     
@@ -424,7 +421,7 @@ client_t getClientInfo() {
  * null, and then adds data to a new node at the end of the current list.
  *
  * Inputs:
- * - node_t pointer to the headNode
+ * - 'node_t' pointer to the 'headNode'.
  *
  * Outputs:
  * - None.
@@ -448,10 +445,10 @@ void addNewElementToEnd(node_t* headNode) {
  * null, and then removes data from the node at the end of the current list.
  *
  * Inputs:
- * - node_t pointer to the headNode
+ * - 'node_t' pointer to the headNode.
  *
  * Outputs:
- * - the client_t structure removed from the list
+ * - the 'client_t' structure removed from the list.
 ******************************************************************************/
 client_t removeLastElement(node_t* headNode) {
     node_t* iteratorNode;
@@ -479,10 +476,10 @@ client_t removeLastElement(node_t* headNode) {
  * This function checks if the 'node_t*' given to it returns a null value.
  *
  * Inputs:
- * - A node_t pointer 
+ * - A 'node_t' pointer. 
  *
  * Outputs:
- * - Returns 1 if the node to checked is Null, 0 if not Null
+ * - Returns 1 if the node to checked is null, 0 if not null.
 ******************************************************************************/
 int nullNodeChecker(node_t* nodeToBeChecked) {
     if (nodeToBeChecked == NULL) {
@@ -499,10 +496,10 @@ int nullNodeChecker(node_t* nodeToBeChecked) {
  * via the 'client_t typedef', of the 'client' struct. 
  *
  * Inputs:
- * - node_t pointer to the headNode
+ * - 'node_t' pointer to the 'headNode'.
  *
  * Outputs:
- * - None
+ * - None.
 ******************************************************************************/
 void viewWholeList(node_t* headNode) { 
     node_t* iteratorNode;
@@ -536,16 +533,17 @@ void viewWholeList(node_t* headNode) {
 /******************************************************************************
  * findElement() function description: 
  * Creates an iterator that jumps through the linked list, incrementing a 
- * counter each time it doies so, and then finds and displays the data from 
+ * counter each time it does so, and then finds and displays the data from 
  * the specified node in the current list when the counter equals the index
  * specified.
  * 
  *
  * Inputs:
- * - node_t pointer to the headNode
- * - index of the node to be found
+ * - 'node_t' pointer to the 'headNode'.
+ * - Index of the node to be found.
+ * 
  * Outputs:
- * - the node at the index specified
+ * - The node at the index specified.
 ******************************************************************************/
 node_t* findElement(node_t* headNode, int index) {
     int indexCount = 0;
@@ -566,10 +564,10 @@ node_t* findElement(node_t* headNode, int index) {
  * null, and then displays the size of the current list.
  *
  * Inputs:
- * - node_t pointer to the headNode
+ * - 'node_t' pointer to the 'headNode'.
  *
  * Outputs:
- * - An int which is the size of the current linked list
+ * - An int which is the size of the current linked list.
 ******************************************************************************/
 int getSize(node_t* headNode) {
     if (headNode == NULL) {
@@ -584,6 +582,7 @@ int getSize(node_t* headNode) {
         indexCount++;
         iteratorNode = iteratorNode->nextNode;
     }
+
     return indexCount;
 }
 
@@ -596,11 +595,11 @@ int getSize(node_t* headNode) {
  * typedef struct. 
  *
  * Inputs:
- * - node_t pointer to the headNode
- * - index of client_t struct to be retrieved
+ * - 'node_t' pointer to the 'headNode'.
+ * - Index of 'client_t' struct to be retrieved.
  *
  * Outputs:
- * - A client_t structure from the node at the specified index
+ * - A 'client_t' structure from the node at the specified index.
 ******************************************************************************/
 client_t getDataAtIndex(node_t* headNode, int index) {
     node_t* nodeToBePrinted = findElement(headNode, index);
@@ -613,10 +612,10 @@ client_t getDataAtIndex(node_t* headNode, int index) {
  * null, and then removes data from the first node of the current linked list.
  *
  * Inputs:
- * - node_t double pointer to the headNode
+ * - 'node_t' double pointer to the 'headNode'.
  * 
  * Outputs:
- * - Client_t structure contained by the node deleted
+ * - 'client_t' structure contained by the node deleted.
 ******************************************************************************/
 client_t deleteFirstElement(node_t** headNode) {
     client_t lastClientInfo;
@@ -635,11 +634,11 @@ client_t deleteFirstElement(node_t** headNode) {
  * current linked list. 
  *
  * Inputs:
- * - node_t double pointer to the headNode
- * - index of node to be deleted
+ * - 'node_t' double pointer to the 'headNode'.
+ * - Index of node to be deleted.
  *
  * Outputs:
- * - Client_t structure contained by the node deleted
+ * - 'client_t' structure contained by the node deleted.
 ******************************************************************************/
 client_t deleteElementAtIndex(node_t** headNode, int index) {
     int indexCount = 0;
@@ -677,7 +676,7 @@ client_t deleteElementAtIndex(node_t** headNode, int index) {
  * current linked list.
  *
  * Inputs:
- * - node_t double pointer to the headNode
+ * - 'node_t' double pointer to the 'headNode'.
  *
  * Outputs:
  * - None.
@@ -697,10 +696,10 @@ void addNewHead(node_t** headNode) {
  * chosen index of the linked list. 
  *
  * Inputs:
- * - node_t double pointer to the headNode
+ * - 'node_t' double pointer to the 'headNode'.
  *
  * Outputs:
- * - int signaling if the addition of the node succeeded or failed
+ * - 'int' signaling if the addition of the node succeeded or failed.
 ******************************************************************************/
 int addElementToIndex(node_t** headNode, int index) {
     int indexCount = 0;
@@ -741,10 +740,10 @@ int addElementToIndex(node_t** headNode, int index) {
  * position two, with the place of the payment in position three.  
  *
  * Inputs:
- * - node_t double pointer to the headNode
+ * - 'node_t' double pointer to the 'headNode'.
  *
  * Outputs:
- * - int signaling if the addition of the node succeeded or failed
+ * - 'int' signaling if the addition of the node succeeded or failed.
 ******************************************************************************/
 int swapAdjacentElements(node_t** headNode, int firstIndex, int secondIndex) {
     node_t* initialNode = malloc(sizeof(node_t));
@@ -780,7 +779,7 @@ int swapAdjacentElements(node_t** headNode, int firstIndex, int secondIndex) {
  * until they're all properly sorted, in the order of the most recent payment.   
  *
  * Inputs:
- * - node_t double pointer to the headNode
+ * - 'node_t' double pointer to the 'headNode'.
  *
  * Outputs:
  * - None.
